@@ -21,12 +21,31 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="#" class="brand-link">
 
-      <span class="brand-text font-weight-light">Administrator</span>
+      <span class="brand-text font-weight-light">{{Auth::user()->name}}</span>
     </a>
     <div class="sidebar">
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
+          @can('isSuperAdmin')
+            <li class="nav-item">
+              <a href="{{route('superadmin.index')}}" class="nav-link">
+                <i class="fas fa-user-circle"></i>
+                <p>
+                  User List
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <form action="{{ route('logout') }}" method="post">@csrf
+                  <button type="submit" class="btn btn-danger w-100">
+                      <i class="fas fa-sign-out-alt"></i>
+                      Logout
+                  </button>
+                      
+              </form>
+            </li>
+          @else
           <li class="nav-item">
             <a href="{{route('admin.userlist')}}" class="nav-link">
               <i class="fas fa-user-circle"></i>
@@ -81,6 +100,7 @@
                     
             </form>
           </li>
+          @endcan
         </ul>
       </nav>
     </div>

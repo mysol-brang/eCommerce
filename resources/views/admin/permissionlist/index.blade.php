@@ -4,26 +4,32 @@
 <div class="col-12">
   <div class="col-4">
       <!-- Alert  -->
-      @if(Session::has('delSuccess'))
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>{{Session::get('delSuccess')}}</strong>
+      @if(Session::has('addedSuccess'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{Session::get('addedSuccess')}}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       @endif
       <!-- Alert box -->
+      @if(Session::has('updatedSuccess'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{Session::get('updatedSuccess')}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      @endif
   </div>
     <div class="card">
       <div class="card-header">
-        @can('isSuperAdmin')
-          <h3 class="card-title"><b>Permission User List</b></h3>
-          <a href="">
-            <button class="btn btn-sm bg-primary text-white mx-3"><i class="fa-solid fa-plus mr-1"></i>Add Permission</button>
-          </a>
-        @else
-          <h3 class="card-title"><b>User List</b></h3>
-        @endcan
+       
+        <h3 class="card-title"><b>User List</b></h3>
+        <a href="{{route('superadmin.addpermission')}}">
+          <button class="btn btn-sm bg-primary text-white mx-3"><i class="fa-solid fa-plus mr-1"></i>Add Permission</button>
+        </a>
+      
         
         <div class="card-tools">
           <form action="" method="POST">@csrf
@@ -46,6 +52,7 @@
             <tr>
               <th>ID</th>
               <th>Name</th>
+              <th>Role</th>
               <th>Email</th>
               <th>Phone</th>
               <th>Address</th>
@@ -57,15 +64,19 @@
                 <tr>
                   <td>{{ $index+1 }}</td>
                   <td>{{ $user['name'] }}</td>
+                  <td>{{ $user->role->role}}</td>
                   <td>{{ $user['email'] }}</td>
                   <td>{{ $user['phone'] }}</td>
                   <td>{{ $user['address'] }}</td>
                   <td>
-                    <a href="{{route('admin.userlist.edit',$user->id)}}">
-                      <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
-                    </a>
+                    @if ($user->role_id != '1')
+                        <a href="{{route('superadmin.edit',$user->id)}}">
+                            <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
+                        </a>
+                    @endif
+                   
                     @if(Auth::id()!=$user['id'])
-                    <a   href="{{route('admin.userlist.delete',$user->id)}}" onclick="return confirm('Are you sure?');">
+                    <a   href="{{route('superadmin.delete',$user->id)}}" onclick="return confirm('Are you sure?');">
                       <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
                     </a>
                     @endif

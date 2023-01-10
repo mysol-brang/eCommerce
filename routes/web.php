@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 Route::get('/', function () {
     return view('home');
 });
@@ -21,6 +22,15 @@ Route::get('/', function () {
 Route::get('/products',[App\Http\Controllers\ProductController::class,'index'])->name('products');
 Route::view('/about','about')->name('about');
 Route::view('/contact','contact')->name('contact');
+
+Route::prefix('superadmin')->name('superadmin.')->middleware(['admin'])->group(function(){
+    Route::get('index',[\App\Http\Controllers\Admin\SuperAdminController::class, 'index'])->name('index');
+    Route::get('addpermission',[App\Http\Controllers\Admin\SuperAdminController::class, 'addpermission'])->name('addpermission');
+    Route::get('added/{id}',[\App\Http\Controllers\Admin\SuperAdminController::class, 'added'])->name('added');
+    Route::get('edit/{id}',[\App\Http\Controllers\Admin\SuperAdminController::class,'edit'])->name('edit');
+    Route::post('update/{id}',[\App\Http\Controllers\Admin\SuperAdminController::class,'update'])->name('update');
+    Route::get('del/{id}',[\App\Http\Controllers\Admin\SuperAdminController::class,'delete'])->name('delete');
+});
 
 //admin
 Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function(){
@@ -30,7 +40,7 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function(){
     Route::get('userlist',[App\Http\Controllers\Admin\UserListController::class,'index'])->name('userlist');
     Route::get('userlist/{id}/edit',[App\Http\Controllers\Admin\UserListController::class,'edit'])->name('userlist.edit');
     Route::post('userlist/{id}/update',[\App\Http\Controllers\Admin\UserListController::class,'update'])->name('userlist.update');
-    Route::delete('userlist/{id}/del',[\App\Http\Controllers\Admin\UserListController::class,'delete'])->name('userlist.delete');
+    Route::get('userlist/{id}/del',[\App\Http\Controllers\Admin\UserListController::class,'delete'])->name('userlist.delete');
     //productlist
     Route::get('productlist',[\App\Http\Controllers\Admin\ProductController::class,'index'])->name('productlist');
     Route::get('addproduct',[App\Http\Controllers\Admin\ProductController::class,'addProduct'])->name('addproduct');
@@ -39,7 +49,7 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function(){
     Route::get('productlist/{id}/del',[\App\Http\Controllers\Admin\ProductController::class,'delete'])->name('productlist.delete');
 });
 
-Auth::routes();
+
 //user
 Route::name('user.')->middleware('auth')->group(function(){
    Route::get('/profile/{id}',[\App\Http\Controllers\UserController::class,'edit'])->name('profile');
