@@ -27,7 +27,7 @@ class SuperAdminController extends Controller
             'role_id' => '3',
         ]);
 
-        return redirect()->route('superadmin.index')->with('addedSuccess','added to admin');
+        return redirect()->route('superadmin.index')->with('addedSuccess','Added to admin');
     }
 
     public function edit($id)
@@ -54,5 +54,16 @@ class SuperAdminController extends Controller
         ]);
 
         return redirect()->route('superadmin.index')->with('updatedSuccess','Updated Successfully.');
+    }
+
+    public function delete($id)
+    {
+        $user = User::find($id);
+        if($user->delete())
+        {
+            return back()->with('delSuccess','User has deleted.');
+        }else{
+            return back()->with('delfailed','Failed to delete.');
+        }
     }
 }

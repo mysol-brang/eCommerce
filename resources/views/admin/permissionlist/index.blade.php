@@ -4,18 +4,18 @@
 <div class="col-12">
   <div class="col-4">
       <!-- Alert  -->
-      @if(Session::has('addedSuccess'))
+      @if(Session::has('addedSuccess') | Session::has('updatedSuccess') | Session::has('delSuccess'))
       <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>{{Session::get('addedSuccess')}}</strong>
+        <strong>{{Session::get('addedSuccess')}}  {{Session::get('updatedSuccess')}}  {{Session::get('delSuccess')}}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       @endif
       <!-- Alert box -->
-      @if(Session::has('updatedSuccess'))
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>{{Session::get('updatedSuccess')}}</strong>
+      @if(Session::has('delfailed'))
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{Session::get('delfailed')}}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -25,7 +25,7 @@
     <div class="card">
       <div class="card-header">
        
-        <h3 class="card-title"><b>User List</b></h3>
+        <h3 class="card-title"><b>Permission User List</b></h3>
         <a href="{{route('superadmin.addpermission')}}">
           <button class="btn btn-sm bg-primary text-white mx-3"><i class="fa-solid fa-plus mr-1"></i>Add Permission</button>
         </a>

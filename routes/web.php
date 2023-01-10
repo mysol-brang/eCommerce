@@ -23,6 +23,7 @@ Route::get('/products',[App\Http\Controllers\ProductController::class,'index'])-
 Route::view('/about','about')->name('about');
 Route::view('/contact','contact')->name('contact');
 
+//Super Admin
 Route::prefix('superadmin')->name('superadmin.')->middleware(['admin'])->group(function(){
     Route::get('index',[\App\Http\Controllers\Admin\SuperAdminController::class, 'index'])->name('index');
     Route::get('addpermission',[App\Http\Controllers\Admin\SuperAdminController::class, 'addpermission'])->name('addpermission');
