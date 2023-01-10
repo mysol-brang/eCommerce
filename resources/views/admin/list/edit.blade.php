@@ -26,6 +26,13 @@
                       <input type="text" name="name" value="{{$user->name}}" class="form-control input-sm" id="forname" aria-describedby="emailHelp" placeholder="Enter Name">
                     </div>
                     <div class="form-group">
+                      <label for="forrole">Role Type</label>
+                      <select class="form-control" id="forrole" name="role_id">
+                        <option value="2" @if($user->role_id == 2)selected @endif>User</option>                
+                        <option value="4" @if($user->role_id == 4)selected @endif>Editor</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
                         <label for="foremail">Email address</label>
                         <input type="email" name="email" value="{{$user->email}}" class="form-control" id="foremail" aria-describedby="emailHelp" placeholder="Enter email">
                       </div>

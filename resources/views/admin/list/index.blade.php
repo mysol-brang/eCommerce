@@ -4,15 +4,23 @@
 <div class="col-12">
   <div class="col-4">
       <!-- Alert  -->
-      @if(Session::has('delSuccess'))
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>{{Session::get('delSuccess')}}</strong>
+      @if(Session::has('updatedSuccess') | Session::has('delSuccess'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{Session::get('addedSuccess')}}  {{Session::get('updatedSuccess')}}  {{Session::get('delSuccess')}}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       @endif
       <!-- Alert box -->
+      @if(Session::has('delfailed'))
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{Session::get('delfailed')}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      @endif
   </div>
     <div class="card">
       <div class="card-header">
@@ -46,6 +54,7 @@
             <tr>
               <th>ID</th>
               <th>Name</th>
+              <th>Role</th>
               <th>Email</th>
               <th>Phone</th>
               <th>Address</th>
@@ -57,6 +66,7 @@
                 <tr>
                   <td>{{ $index+1 }}</td>
                   <td>{{ $user['name'] }}</td>
+                  <td @if ($user->role_id==4) class="text-primary" @endif >{{ $user->role->role }}</td>                        
                   <td>{{ $user['email'] }}</td>
                   <td>{{ $user['phone'] }}</td>
                   <td>{{ $user['address'] }}</td>

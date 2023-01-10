@@ -35,8 +35,6 @@ Route::prefix('superadmin')->name('superadmin.')->middleware(['admin'])->group(f
 
 //admin
 Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function(){
-    Route::get('index',[App\Http\Controllers\AdminController::class, 'index'])->name('index');
-    Route::get('products',[App\Http\Controllers\Admin\ProductController::class,'index'])->name('products');
     //userlist
     Route::get('userlist',[App\Http\Controllers\Admin\UserListController::class,'index'])->name('userlist');
     Route::get('userlist/{id}/edit',[App\Http\Controllers\Admin\UserListController::class,'edit'])->name('userlist.edit');
@@ -47,6 +45,7 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function(){
     Route::get('addproduct',[App\Http\Controllers\Admin\ProductController::class,'addProduct'])->name('addproduct');
     Route::post('addedproduct',[\App\Http\Controllers\Admin\ProductController::class,'addedProduct'])->name('addedproduct');
     Route::get('productlist/{id}/edit',[App\Http\Controllers\Admin\ProductController::class,'edit'])->name('productlist.edit');
+    Route::post('productlist/{id}/update',[\App\Http\Controllers\Admin\ProductController::class,'update'])->name('productlist.update');
     Route::get('productlist/{id}/del',[\App\Http\Controllers\Admin\ProductController::class,'delete'])->name('productlist.delete');
 });
 

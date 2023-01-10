@@ -11,7 +11,7 @@ class UserListController extends Controller
 {
     public function index()
     {
-        $userlist = User::all();
+        $userlist = User::with('role')->whereNotIn('role_id',[1,3])->get();
         return view('admin.list.index',compact('userlist'));
     }
 
@@ -23,6 +23,7 @@ class UserListController extends Controller
 
     public function update(Request $request,$id)
     {  
+        
         $user = User::find($id);
         if(!is_null($request->password)){
             $password=Hash::make($request->password);
@@ -31,13 +32,14 @@ class UserListController extends Controller
         }
         $user->update([
             "name"=>$request->name,
+            "role_id"=>$request->role_id,
             "email"=>$request->email,
             "password"=>$password,
             "phone"=>$request->phone,
             "address"=>$request->address
         ]);
 
-        return redirect()->route('admin.userlist');
+        return redirect()->route('admin.userlist')->with('updatedSuccess',"Updated Successfully!");
     }
 
     public function delete($id)
@@ -47,7 +49,7 @@ class UserListController extends Controller
         {
             return back()->with('delSuccess','user deleted.');
         }else{
-            return back()->with('failed','failed to delete.');
+            return back()->with('delfailed','failed to delete.');
         }
     }
 }
