@@ -4,22 +4,32 @@
 <div class="col-12">
   <div class="col-4">
       <!-- Alert  -->
-      @if(Session::has('delSuccess'))
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>{{Session::get('delSuccess')}}</strong>
+      @if(Session::has('updatedSuccess') | Session::has('delSuccess'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{Session::get('addedSuccess')}}  {{Session::get('updatedSuccess')}}  {{Session::get('delSuccess')}}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       @endif
       <!-- Alert box -->
+      @if(Session::has('delfailed'))
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{Session::get('delfailed')}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      @endif
   </div>
     <div class="card">
       <div class="card-header">
         <h3 class="card-title"><b>Product List</b></h3>
+        @canany(['isAdmin'])
         <a href="{{route('admin.addproduct')}}">
             <button class="btn btn-sm bg-primary text-white mx-3"><i class="fa-solid fa-plus mr-1"></i>Add Product</button>
         </a>
+        @endcanany
         <div class="card-tools">
           <form action="" method="POST">@csrf
             <div class="input-group input-group-sm" style="width: 150px;">
@@ -57,11 +67,11 @@
                     <a href="{{route('admin.productlist.edit',$product->id)}}">
                       <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
                     </a>
-                    
+                    @canany(['isAdmin'])
                     <a   href="{{route('admin.productlist.delete',$product->id)}}" onclick="return confirm('Are you sure?');">
                       <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
                     </a>
-                  
+                    @endcanany
                   </td>
                 </tr>
            @endforeach

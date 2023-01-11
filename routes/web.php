@@ -49,6 +49,13 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function(){
     Route::get('productlist/{id}/del',[\App\Http\Controllers\Admin\ProductController::class,'delete'])->name('productlist.delete');
 });
 
+//editor
+// Route::prefix('editor')->name('editor.')->middleware(['admin'])->group(function(){
+//     //userlist
+//     Route::get('userlist',[App\Http\Controllers\Admin\UserListController::class,'index'])->name('userlist');
+//     Route::get('userlist/{id}/edit',[App\Http\Controllers\Admin\UserListController::class,'edit'])->name('userlist.edit');
+// });
+
 
 //user
 Route::name('user.')->middleware('auth')->group(function(){

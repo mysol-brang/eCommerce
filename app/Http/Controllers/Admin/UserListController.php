@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class UserListController extends Controller
@@ -30,20 +31,38 @@ class UserListController extends Controller
         }else{
             $password=$request->passwordhidden;
         }
-        $user->update([
+        if($request->role_id <= 4)
+        {
+            $user->update([
             "name"=>$request->name,
             "role_id"=>$request->role_id,
             "email"=>$request->email,
             "password"=>$password,
             "phone"=>$request->phone,
             "address"=>$request->address
-        ]);
+            ]);
+        }elseif(is_null($request->role_id))
+        {   //for editor update
+            $user->update([
+                "name"=>$request->name,
+                "email"=>$request->email,
+                "password"=>$password,
+                "phone"=>$request->phone,
+                "address"=>$request->address
+                ]);
+        }else abort(403);
+        
 
         return redirect()->route('admin.userlist')->with('updatedSuccess',"Updated Successfully!");
     }
 
     public function delete($id)
     {
+        
+        if (! Gate::allows('isAdmin')) { //for unallowed user or editor delete
+            abort(403);
+        }
+        
         $user = User::find($id);
         if($user->delete())
         {

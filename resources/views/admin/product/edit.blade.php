@@ -28,7 +28,7 @@
       <div class="card-body table-responsive p-0">
         <div class="container">
             <div class="row">
-                <form class="p-3" action="{{route('admin.productlist.update',$product->id)}}" method="post">@csrf
+                <form class="p-3" action="{{route('admin.productlist.update',$product->id)}}" method="post" enctype="multipart/form-data">@csrf
                     <div class="form-group row ">
                       <label for="forname">Title</label>
                       <input type="text" name="title" value="{{$product->title}}" class="form-control input-sm" id="forname" aria-describedby="emailHelp" placeholder="Enter Name">
@@ -48,6 +48,15 @@
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all()  as $error)
+                            <li>{{ $error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
         
       </div>

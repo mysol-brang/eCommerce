@@ -6,6 +6,8 @@ use DateTime;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -17,11 +19,17 @@ class ProductController extends Controller
 
     public function addProduct(Request $request)
     {
+        if (! Gate::allows('isAdmin')) { //for unallowed user or editor delete
+            abort(403);
+        }
          return view('admin.product.addproduct');
     }
 
     public function addedProduct(Request $request)
     {
+        if (! Gate::allows('isAdmin')) { //for unallowed user or editor delete
+            abort(403);
+        }
         $request->validate([
             'title' => 'required|max:255',
             'price' => 'required|numeric',
@@ -61,26 +69,27 @@ class ProductController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'price' => 'required|numeric',
-            'image' => 'image|mimes:jpg,jpeg,png|max:2048'
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
         
-        $img = $request->file('image');
-        $datetime = new DateTime();
-        $image = "Product_".$datetime->format('y_m_d_His').".".$img->getClientOriginalExtension();
+        
 
         try
-        {
+        {   $img = $request->file('image');
             $product = Product::find($id);
-            if(is_null($request->image))
+            if(is_null($img))
             {
                 $product->update([
                     'title' => $request['title'],
                     'price' => $request['price'],
                     'description' => $request['description'],
                 ]);
-
+            
                 return back()->with('updatedSuccess','Added successfully');
             }else{
+                $datetime = new DateTime();
+                $image = "Product_".$datetime->format('y_m_d_His').".".$img->getClientOriginalExtension();
+                Storage::delete('public/app/images/'.$product->image);
                 $product->update([
                 'title' => $request['title'],
                 'price' => $request['price'],
@@ -91,7 +100,7 @@ class ProductController extends Controller
             
         
             if($product)
-            { 
+            {   
                 $img->move(public_path('storage/app/images'),$image);
                 return back()->with('updatedSuccess','Added successfully');
             }else return back()->with('updatedError','failed to add!');
@@ -100,5 +109,21 @@ class ProductController extends Controller
             return back()->with('updatedError','failed to add!');
         }
 
+    }
+
+    public function delete($id)
+    {
+        
+        if (! Gate::allows('isAdmin')) { //for unallowed user or editor delete
+            abort(403);
+        }
+        
+        $product = Product::find($id);
+        if($product->delete())
+        {
+            return back()->with('delSuccess','user deleted.');
+        }else{
+            return back()->with('delfailed','failed to delete.');
+        }
     }
 }
