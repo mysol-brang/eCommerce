@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 Route::get('/', function () {
-    return view('home');
+    return view('cart');
 });
 //user
 Route::get('/products',[App\Http\Controllers\ProductController::class,'index'])->name('products');
@@ -33,7 +33,7 @@ Route::prefix('superadmin')->name('superadmin.')->middleware(['admin'])->group(f
     Route::get('del/{id}',[\App\Http\Controllers\Admin\SuperAdminController::class,'delete'])->name('delete');
 });
 
-//admin
+//admin & editor
 Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function(){
     //userlist
     Route::get('userlist',[App\Http\Controllers\Admin\UserListController::class,'index'])->name('userlist');
@@ -49,20 +49,16 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function(){
     Route::get('productlist/{id}/del',[\App\Http\Controllers\Admin\ProductController::class,'delete'])->name('productlist.delete');
 });
 
-//editor
-// Route::prefix('editor')->name('editor.')->middleware(['admin'])->group(function(){
-//     //userlist
-//     Route::get('userlist',[App\Http\Controllers\Admin\UserListController::class,'index'])->name('userlist');
-//     Route::get('userlist/{id}/edit',[App\Http\Controllers\Admin\UserListController::class,'edit'])->name('userlist.edit');
-// });
-
-
 //user
 Route::name('user.')->middleware('auth')->group(function(){
    Route::get('/profile/{id}',[\App\Http\Controllers\UserController::class,'edit'])->name('profile');
    Route::post('user/{id}/update',[\App\Http\Controllers\UserController::class,'update'])->name('update');
 
 });
+//cart
+Route::get('/cart',[\App\Http\Controllers\CartController::class, 'cartList'])->name('cart.list');
+Route::post('/cart',[\App\Http\Controllers\CartController::class, 'addToCart'])->name('cart.add');
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
