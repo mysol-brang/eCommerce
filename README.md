@@ -1,7 +1,8 @@
 # eCommerce Shopping Project
 > This project runs with Laravel Framework 8.13.0.
 ## Getting started
-* required PHP (>= 7.0.0 < 8)
+* required PHP version (>= 7.0.0 < 8)
+* required Composer version ^2.4.4
 ## To Setup
 ```
 # install dependencies
@@ -43,6 +44,6 @@ This software is licensed under the MySol Software Development license, quoted b
 
 Copyright 2023 MySol.Co.Ltd
 
-Licensed under the MySol License, Version 1.0 (the "License"); you may not use this project except in compliance with the License. You may obtain a copy of the License at http://www.mysol.com/licenses/LICENSE-2.0.
+Licensed under the MySol License, Version 1.0 (the "License"); you may not use this project except in compliance with the License. You may obtain a copy of the License at http://www.mysol.com/licenses/LICENSE-1.0.
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
