@@ -18,6 +18,18 @@ npm run dev
 # or, if you prefer minified files
 npm run prod
 ```
+> * create ecomm database and import ecomm.sql dump file
+> * So, you don't need to run php artisan migrate
+
+#For SuperAdmin login
+> email: superadmin@gmail.com
+> password: password
+#For Admin login 
+> email: admin@gmail.com
+> password: password
+#For Editor login
+> email: tanaka@gmail.com
+> password: password
 ## .Env Setup
 ```
 APP_NAME=MySol
