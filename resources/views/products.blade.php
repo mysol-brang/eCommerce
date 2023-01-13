@@ -28,13 +28,33 @@
     <div class="row posts">
       @foreach ($products as $product)
         <div id="1" class="item new col-md-4">
-          <a href="single-product.html">
+          <a href="{{url('single')}}">
             <div class="featured-item">
               <img src="{{asset('storage/app/images/'.$product->image)}}" alt="image">
-              <h4>{{$product->title}}</h4>
-              <h6>Kyat {{$product->price}}</h6>
-            </div>
-          </a>
+            </a>
+            <div class="d-flex justify-content-between">
+              <div>
+                <h4>{{$product->title}}</h4>            
+                <h6>Kyat {{$product->price}}</h6>
+              </div>
+              <div class="justify-content-right">
+                <h4>
+                    <form action="{{ route('cart.add') }}" method="POST" enctype="multipart/form-data">
+                      @csrf 
+                      <input type="hidden" value="{{ $product->id }}" name="id">
+                      <input type="hidden" value="{{ $product->title }}" name="title">
+                      <input type="hidden" value="{{ $product->price }}" name="price">
+                      <input type="hidden" value="{{ $product->image }}"  name="image">
+                      <input type="hidden" value="1" name="quantity">
+                      <button class="btn btn-primary">Add To Cart</button>
+                    </form>
+                </h4>
+              </div> 
+              
+            </div>    
+              
+          </div>
+          
         </div>
       @endforeach
         

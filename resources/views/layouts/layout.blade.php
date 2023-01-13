@@ -8,6 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <title>MySol</title>
 
@@ -95,8 +96,21 @@
             <li class="nav-item {{ (Request::path()=='about') ? 'active' : '' }}">
               <a class="nav-link" href="{{route('about')}}">About Us</a>
             </li>
-            <li class="nav-item {{ (Request::path()=='contact') ? 'active' : '' }}">
+            {{-- <li class="nav-item {{ (Request::path()=='contact') ? 'active' : '' }}">
               <a class="nav-link" href="{{route('contact')}}">Contact Us</a>
+            </li> --}}
+            <li class="nav-item {{ (Request::path()=='cart') ? 'active' : '' }}">
+              <a href="{{route('cart.list')}}" class="nav-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart mb-2" viewBox="0 0 16 16">
+                  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </svg>
+                @if (Cart::getTotalQuantity() == 0)
+                  {{ Cart::getTotalQuantity() }}
+                @else
+                  <span class="badge badge-info">{{ Cart::getTotalQuantity() }}</span>
+                @endif
+                
+              </a>
             </li>
           </ul>
         </div>
