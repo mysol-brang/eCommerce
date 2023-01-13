@@ -29,9 +29,17 @@
     <div id="pre-header">
       <div class="container">
         <div class="row">
-          <div class="col-md-12">
-            <span>Product will be delivered & we will contact you soon!</span>
-          </div>
+          @if (Session::get('orderSuccess'))  
+            <div class="col-md-12">
+              <span>Product will be delivered & we will contact you soon!</span>
+            </div>
+          @endif
+          
+          @if (Session::get('cartZero'))
+            <div class="col-md-12">
+              <span class="text-warning font-weight-bold">{{ Session::get('cartZero') }}</span>
+            </div>
+          @endif
         </div>
       </div>
     </div>
