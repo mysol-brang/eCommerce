@@ -21,13 +21,13 @@ npm run prod
 > * create ecomm database and import ecomm.sql dump file
 > * So, you don't need to run php artisan migrate
 
-#For SuperAdmin login
+# For SuperAdmin login
 > email: superadmin@gmail.com
 > password: password
-#For Admin login 
+# For Admin login 
 > email: admin@gmail.com
 > password: password
-#For Editor login
+# For Editor login
 > email: tanaka@gmail.com
 > password: password
 ## .Env Setup
