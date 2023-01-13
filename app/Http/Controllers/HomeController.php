@@ -28,6 +28,10 @@ class HomeController extends Controller
 
     public function checkout()
     {
+        if(\Cart::getTotalQuantity() <= 0)
+        {
+            return back()->with('cartZero','You have to Buy Product to Order!');
+        }
         return view('checkout');
     }
 }
