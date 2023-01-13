@@ -28,7 +28,7 @@
     <div class="row posts">
       @foreach ($products as $product)
         <div id="1" class="item new col-md-4">
-          <a href="single-product.html">
+          <a href="{{url('single')}}">
             <div class="featured-item">
               <img src="{{asset('storage/app/images/'.$product->image)}}" alt="image">
             </a>

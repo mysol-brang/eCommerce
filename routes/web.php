@@ -16,12 +16,19 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 Route::get('/', function () {
-    return view('cart');
+    return redirect()->route('home');
 });
-//user
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('single',function () {
+    return view('single-product');
+});
+
+//user page
 Route::get('/products',[App\Http\Controllers\ProductController::class,'index'])->name('products');
 Route::view('/about','about')->name('about');
-Route::view('/contact','contact')->name('contact');
+
+
+
 
 //Super Admin
 Route::prefix('superadmin')->name('superadmin.')->middleware(['admin'])->group(function(){
@@ -58,7 +65,12 @@ Route::name('user.')->middleware('auth')->group(function(){
 //cart
 Route::get('/cart',[\App\Http\Controllers\CartController::class, 'cartList'])->name('cart.list');
 Route::post('/cart',[\App\Http\Controllers\CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/add-quantity',[\App\Http\Controllers\CartController::class, 'addQuantity'])->name('cart.quantity');
+Route::post('/remove', [\App\Http\Controllers\CartController::class, 'removeCart'])->name('cart.remove');
+Route::post('/clear', [\App\Http\Controllers\CartController::class, 'clearAllCart'])->name('cart.clear');
+
+//checkout
+Route::middleware('auth')->get('/checkout',[App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout');
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

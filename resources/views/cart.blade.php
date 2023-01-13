@@ -15,6 +15,12 @@
 		        </div>
 		        <div class="content">
 	 				<div class="row">
+						@if (Cart::getTotalQuantity() == 0)
+							<div class="col-md-12 col-lg-12 p-5">
+								<h3 class="text-black-50 text-center p-5">Nothing in Cart</h3>
+							</div>
+						@else
+						
 	 					<div class="col-md-12 col-lg-8">
 	 						<div class="items">
                                 @foreach ($cartItems as $item)
@@ -35,24 +41,28 @@
 									 					</div>
 							 						</div>
 							 						<div class="col-md-4 quantity">
-							 							<label for="quantity">Quantity:</label>
-							 							<input id="quantity" type="number" value ="{{$item->quantity}}" class="form-control quantity-input">
-                                                         <div class="">
-                                    
-                                                            <form action="{{ route('cart.update') }}" method="POST">
-                                                              @csrf
-                                                              <input type="hidden" name="id" value="{{ $item->id}}" >
-                                                            <input type="number" name="quantity" value="{{ $item->quantity }}" 
-                                                            class="text-center" />
-                                                            <button type="submit" class="px-2 pb-2 ml-2 text-white bg-blue-500">update</button>
-                                                            </form>
-                                                          </div>
+							 							<label for="quantity">Quantity:</label>                                                  
+                                                         <form action="{{ route('cart.quantity') }}" method="POST">
+															@csrf
+															<input type="hidden" name="id" value="{{ $item->id}}">
+															<div class="input-group mb-3">
+															<input id="quantity" name="quantity" type="number" value ="{{$item->quantity}}" class="form-control quantity-input" min="1" oninput="this.value = Math.abs(this.value)">
+															<div class="input-group-append">
+															<button type="submit" class="btn btn-outline-secondary"><i class="fa-solid fa-chevron-up"></i></button>
+														    </div>
+															</div>
+														  </form>                                  
 							 						</div>
 							 						<div class="col-md-3 price">
-							 							<span>Kyat {{$item->price}}</span>
+							 							<span> {{$item->price * $item->quantity}} Kyat</span>
 							 						</div>
-                                                    <div class="col-md-1">
-                                                        <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                                                    <div class="col-md-1 mt-4">
+														<form action="{{ route('cart.remove') }}" method="POST">
+															@csrf
+															<input type="hidden" value="{{ $item->id }}" name="id">
+															<button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
+														</form>
+                                                        
                                                     </div>
 							 					</div>
 							 				</div>
@@ -60,18 +70,51 @@
 					 				</div>
 				 				</div>
                                 @endforeach
+								<div class="product">
+									<div class="row">
+										<div class="col-md-3">
+											
+										</div>
+										<div class="col-md-9">
+											<div class="info">
+												<div class="row">
+													<div class="col-md-4">
+														
+													</div>
+													<div class="col-md-4 price pl-5">
+														{{-- <b class="p-5">Total:</b>                             --}}
+													</div>
+													<div class="col-md-3 price">
+														{{-- {{ Cart::getTotal() }} Kyat --}}
+													</div>
+												   <div class="col-md-1 mt-4">
+													   <form action="{{ route('cart.clear') }}" method="POST">
+														   @csrf
+														   <input type="hidden" value="{{ $item->id }}" name="id">
+														   <button class="btn btn-sm bg-danger text-white"><i class="fa-solid fa-reply-all"><i class="fas fa-trash-alt"></i></i></button>
+													   </form>
+													   
+												   </div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 				 			</div>
 			 			</div>
 			 			<div class="col-md-12 col-lg-4">
 			 				<div class="summary">
 			 					<h3>Summary</h3>
-			 					<div class="summary-item"><span class="text">Subtotal</span><span class="price">$360</span></div>
-			 					<div class="summary-item"><span class="text">Discount</span><span class="price">$0</span></div>
-			 					<div class="summary-item"><span class="text">Shipping</span><span class="price">$0</span></div>
-			 					<div class="summary-item"><span class="text">Total</span><span class="price">$360</span></div>
-			 					<button type="button" class="btn btn-primary btn-lg btn-block">Checkout</button>
+			 					<div class="summary-item"><span class="text">Subtotal</span><span class="price">{{ Cart::getTotal() }} Kyat</span></div>
+			 					<div class="summary-item"><span class="text">Discount</span><span class="price">0 Kyat</span></div>
+			 					<div class="summary-item"><span class="text">Shipping</span><span class="price">0 Kyat</span></div>
+			 					<div class="summary-item"><span class="text">Total</span><span class="price">{{ Cart::getTotal() }} Kyat</span></div>
+								<a href="{{route('checkout')}}">
+									<button type="button" class="btn btn-primary btn-lg btn-block">Checkout</button>
+								</a>	
 				 			</div>
 			 			</div>
+						@endif
 		 			</div> 
 		 		</div>
 	 		</div>
