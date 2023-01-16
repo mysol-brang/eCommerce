@@ -56,16 +56,16 @@
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('admin.orderlist')}}" class="nav-link">
               <i class="fas fa-list"></i>
               <p>
-                Order
+                Order Details
               </p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="fas fa-pizza-slice ms-5"></i>
               <p>
                 Category
@@ -78,15 +78,6 @@
             <i class="fas fa-users"></i>
               <p>
                 Product
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="" class="nav-link">
-              <i class="fas fa-book"></i>
-              <p>
-                Trend Post
               </p>
             </a>
           </li>
