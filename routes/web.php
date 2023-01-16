@@ -54,6 +54,9 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function(){
     Route::get('productlist/{id}/edit',[App\Http\Controllers\Admin\ProductController::class,'edit'])->name('productlist.edit');
     Route::post('productlist/{id}/update',[\App\Http\Controllers\Admin\ProductController::class,'update'])->name('productlist.update');
     Route::get('productlist/{id}/del',[\App\Http\Controllers\Admin\ProductController::class,'delete'])->name('productlist.delete');
+    //Order Details
+    Route::get('orderlist',[\App\Http\Controllers\Admin\OrderController::class,'index'])->name('orderlist');
+    Route::get('orderdatail/{id}',[\App\Http\Controllers\Admin\OrderController::class,'detail'])->name('orderlist.detail');
 });
 
 //user
@@ -71,6 +74,7 @@ Route::post('/clear', [\App\Http\Controllers\CartController::class, 'clearAllCar
 
 //checkout
 Route::middleware('auth')->get('/checkout',[App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout');
+Route::middleware('auth')->patch('/order/{id}',[App\Http\Controllers\HomeController::class, 'order'])->name('order');
 
 
 

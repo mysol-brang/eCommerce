@@ -15,21 +15,32 @@
           <div class="col-md-12">
             <div class="right-content">
               <div class="container">
-                <form id="contact" action="" method="post">
+                <form id="contact" action="{{route('order',$user->id)}}" method="post">
+                  @csrf
+                  @method('PATCH')
                   <div class="row">
                     <div class="col-md-6">
                       <fieldset>
-                        <input name="name" type="text" class="form-control" id="name" placeholder="Your name..." required="">
+                        <input name="name" type="text" value="{{$user->name}}" class="form-control" id="name" placeholder="Your name..." required="">
+                        @error('name')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                       </fieldset>
                     </div><br>
                     <div class="col-md-6">
                       <fieldset>
-                        <input name="email" type="text" class="form-control" id="email" placeholder="Your Phone Number..." required="">
+                        <input name="phone" type="text" value="{{$user->phone}}" class="form-control" id="email" placeholder="Your Phone Number...">
+                        @error('phone')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                       </fieldset>
                     </div>
                     <div class="col-md-12">
                       <fieldset>
-                        <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your full Address" required=""></textarea>
+                        <textarea name="address" rows="6" class="form-control" id="message" placeholder="Your full Address">{{$user->address}}</textarea>
+                        @error('address')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                       </fieldset>
                     </div>
                     <div class="col-md-12">

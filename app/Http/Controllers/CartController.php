@@ -13,7 +13,7 @@ class CartController extends Controller
         return view('cart', compact('cartItems'));
     }
 
-    public function addToCart(Request $request)
+    public function addToCart(Request $request) // Add item to Shopping Cart
     {   
         \Cart::add([
             'id' => $request->id,
@@ -29,7 +29,7 @@ class CartController extends Controller
         return redirect()->route('cart.list');
     }
 
-    public function addQuantity(Request $request)
+    public function addQuantity(Request $request) // Add Quantity to Shopping Cart 
     {  
         \Cart::update(
             $request->id,
@@ -46,7 +46,7 @@ class CartController extends Controller
         return redirect()->route('cart.list');
     }
 
-    public function removeCart(Request $request)
+    public function removeCart(Request $request) // Remove single item
     {
         \Cart::remove($request->id);
         session()->flash('success', 'Item Cart Remove Successfully !');
@@ -54,7 +54,7 @@ class CartController extends Controller
         return redirect()->route('cart.list');
     }
 
-    public function clearAllCart()
+    public function clearAllCart() // Remove All Item
     {
         \Cart::clear();
 

@@ -31,7 +31,7 @@
         <div class="row">
           @if (Session::get('orderSuccess'))  
             <div class="col-md-12">
-              <span>Product will be delivered & we will contact you soon!</span>
+              <span class="text-white font-weight-bold"> {{Session::get('orderSuccess')}}</span>
             </div>
           @endif
           
