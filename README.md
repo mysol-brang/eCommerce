@@ -50,6 +50,9 @@ php artisan serve
 
 The Laravel sample project is now up and running! Access it at http://localhost:8000.
 
+## Database Diagram
+![ecomm](https://i.imgur.com/D76iE5K.png)
+
 ## Licence
 
 This software is licensed under the MySol Software Development license, quoted below.
