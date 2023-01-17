@@ -16,16 +16,16 @@
               <div id="slider" class="flexslider">
                 <ul class="slides">
                   <li>
-                    <img src="assets/images/big-01.jpg" />
+                    <img src="{{asset('dist/img/big-01.jpg')}}" />
                   </li>
                   <li>
-                    <img src="assets/images/big-02.jpg" />
+                    <img src="{{asset('dist/img/big-02.jpg')}}" />
                   </li>
                   <li>
-                    <img src="assets/images/big-03.jpg" />
+                    <img src="{{asset('dist/img/big-03.jpg')}}" />
                   </li>
                   <li>
-                    <img src="assets/images/big-04.jpg" />
+                    <img src="{{asset('dist/img/big-04.jpg')}}" />
                   </li>
                   <!-- items mirrored twice, total of 12 -->
                 </ul>
@@ -33,16 +33,16 @@
               <div id="carousel" class="flexslider">
                 <ul class="slides">
                   <li>
-                    <img src="assets/images/thumb-01.jpg" />
+                    <img src="{{asset('dist/img/thumb-01.jpg')}}" />
                   </li>
                   <li>
-                    <img src="assets/images/thumb-02.jpg" />
+                    <img src="{{asset('dist/img/thumb-02.jpg')}}" />
                   </li>
                   <li>
-                    <img src="assets/images/thumb-03.jpg" />
+                    <img src="{{asset('dist/img/thumb-03.jpg')}}" />
                   </li>
                   <li>
-                    <img src="assets/images/thumb-04.jpg" />
+                    <img src="{{asset('dist/img/thumb-04.jpg')}}" />
                   </li>
                   <!-- items mirrored twice, total of 12 -->
                 </ul>
@@ -93,63 +93,63 @@
             <div class="owl-carousel owl-theme">
               <a href="single-product.html">
                 <div class="featured-item">
-                  <img src="assets/images/item-01.jpg" alt="Item 1">
+                  <img src="{{asset('dist/img/item-01.jpg')}}" alt="Item 1">
                   <h4>Proin vel ligula</h4>
                   <h6>$15.00</h6>
                 </div>
               </a>
               <a href="single-product.html">
                 <div class="featured-item">
-                  <img src="assets/images/item-02.jpg" alt="Item 2">
+                  <img src="{{asset('dist/img/item-01.jpg')}}" alt="Item 2">
                   <h4>Erat odio rhoncus</h4>
                   <h6>$25.00</h6>
                 </div>
               </a>
               <a href="single-product.html">
                 <div class="featured-item">
-                  <img src="assets/images/item-03.jpg" alt="Item 3">
+                  <img src="{{asset('dist/img/item-02.jpg')}}" alt="Item 3">
                   <h4>Integer vel turpis</h4>
                   <h6>$35.00</h6>
                 </div>
               </a>
               <a href="single-product.html">
                 <div class="featured-item">
-                  <img src="assets/images/item-04.jpg" alt="Item 4">
+                  <img src="{{asset('dist/img/item-03.jpg')}}" alt="Item 4">
                   <h4>Sed purus quam</h4>
                   <h6>$45.00</h6>
                 </div>
               </a>
               <a href="single-product.html">
                 <div class="featured-item">
-                  <img src="assets/images/item-05.jpg" alt="Item 5">
+                  <img src="{{asset('dist/img/item-04.jpg')}}" alt="Item 5">
                   <h4>Morbi aliquet</h4>
                   <h6>$55.00</h6>
                 </div>
               </a>
               <a href="single-product.html">
                 <div class="featured-item">
-                  <img src="assets/images/item-06.jpg" alt="Item 6">
+                  <img src="{{asset('dist/img/item-05.jpg')}}" alt="Item 6">
                   <h4>Urna ac diam</h4>
                   <h6>$65.00</h6>
                 </div>
               </a>
               <a href="single-product.html">
                 <div class="featured-item">
-                  <img src="assets/images/item-04.jpg" alt="Item 7">
+                  <img src="{{asset('dist/img/item-04.jpg')}}" alt="Item 7">
                   <h4>Proin eget imperdiet</h4>
                   <h6>$75.00</h6>
                 </div>
               </a>
               <a href="single-product.html">
                 <div class="featured-item">
-                  <img src="assets/images/item-05.jpg" alt="Item 8">
+                  <img src="{{asset('dist/img/item-05.jpg')}}" alt="Item 8">
                   <h4>Nullam risus nisl</h4>
                   <h6>$85.00</h6>
                 </div>
               </a>
               <a href="single-product.html">
                 <div class="featured-item">
-                  <img src="assets/images/item-06.jpg" alt="Item 9">
+                  <img src="{{asset('dist/img/item-06.jpg')}}" alt="Item 9">
                   <h4>Cras tempus</h4>
                   <h6>$95.00</h6>
                 </div>
