@@ -62,9 +62,36 @@
             </tr>
           </thead>
           <tbody> 
+            @php
+              $id = 1;
+            @endphp
+            {{-- for Editor Role Group --}}
+            @foreach ($userlistEditors as $index=>$editor) 
+                <tr>
+                  <td>{{ $id++ }}</td>
+                  <td>{{ $editor['name'] }}</td>
+                  <td @if ($editor->role_id==4) class="text-primary" @endif >{{ $editor->role->role }}</td>                        
+                  <td>{{ $editor['email'] }}</td>
+                  <td>{{ $editor['phone'] }}</td>
+                  <td>{{ $editor['address'] }}</td>
+                  <td>
+                    <a href="{{route('admin.userlist.edit',$editor->id)}}">
+                      <button class="btn btn-sm bg-dark text-white"><i class="fas fa-edit"></i></button>
+                    </a>
+                    @if(Auth::id()!=$editor['id'])
+                    @canany(['isSuperAdmin', 'isAdmin'])
+                    <a   href="{{route('admin.userlist.delete',$editor->id)}}" onclick="return confirm('Are you sure?');">
+                      <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
+                    </a>
+                    @endcanany
+                    @endif
+                  </td>
+                </tr>
+           @endforeach
+           {{-- for User Role Group --}}
            @foreach ($userlist as $index=>$user)
                 <tr>
-                  <td>{{ $index+1 }}</td>
+                  <td>{{ $id++ }}</td>
                   <td>{{ $user['name'] }}</td>
                   <td @if ($user->role_id==4) class="text-primary" @endif >{{ $user->role->role }}</td>                        
                   <td>{{ $user['email'] }}</td>

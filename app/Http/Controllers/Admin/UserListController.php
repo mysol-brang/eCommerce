@@ -12,8 +12,9 @@ class UserListController extends Controller
 {
     public function index()
     {
-        $userlist = User::with('role')->whereNotIn('role_id',[1,3])->get();
-        return view('admin.list.index',compact('userlist'));
+        $userlist = User::with('role')->whereNotIn('role_id',[1,3,4])->get(); // Retrieve Only User Role
+        $userlistEditors = User::with('role')->whereNotIn('role_id',[1,3,2])->get(); // Retrieve Only Editor Role
+        return view('admin.list.index',compact(['userlist','userlistEditors']));
     }
 
     public function edit($id)
