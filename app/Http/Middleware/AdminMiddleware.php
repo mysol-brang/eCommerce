@@ -17,6 +17,12 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        /* role_id 1 for supserAdmin
+           role_id 2 for User
+           role_id 3 for Admin
+           role_id 4 for Editor
+         */
+        
         if(Auth::check())
         {
             if(Auth::user()->role_id != '2')

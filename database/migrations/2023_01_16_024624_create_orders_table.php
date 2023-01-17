@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->integer('user_id');
             $table->string('status')->default('pending');
             $table->string('payment')->default('Cash');
+            $table->softDeletes(); // this will create deleted_at field for softdelete
             $table->timestamps();
         });
     }

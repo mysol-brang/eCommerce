@@ -24,4 +24,17 @@ class OrderController extends Controller
         
         return view('admin.order.detail',compact('details'));
     }
+
+    public function deleteOrder($id)
+    {
+        $user = User::find($id);
+        if($user->orders()->delete())
+        {
+            return back()->with('delSuccess','Deleted Order successfully.');
+        }else{
+            return back()->with('delfailed','Failed to Delete Order.');
+        }      
+
+        
+    }
 }

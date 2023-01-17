@@ -70,7 +70,7 @@
               </a>
               @if(Auth::id()!=$user['id'])
               @canany(['isSuperAdmin', 'isAdmin'])
-              <a   href="{{route('admin.userlist.delete',$user->id)}}" onclick="return confirm('Are you sure?');">
+              <a   href="{{route('admin.order.delete',$user->id)}}" onclick="return confirm('Are you sure?');">
                 <button class="btn btn-sm bg-danger text-white"><i class="fas fa-trash-alt"></i></button>
               </a>
               @endcanany
