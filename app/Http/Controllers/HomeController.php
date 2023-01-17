@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -16,41 +18,30 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        //$this->middleware('auth');        
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        // if(Auth::check()) // To show value of Login User chosen Shopping Cart Data
-        // {
-        //     $cartItems = Order::where('user_id',Auth::id())->get();
-        //     \Cart::clear();
-        //     foreach($cartItems as $item)
-        //     {
-        //         \Cart::add([
-        //                         'id' => $item->product->id,
-        //                         'title' => $item->product->title,
-        //                         'price' => $item->product->price,
-        //                         'quantity' => $item->quantity,
-        //                         'attributes' => array(
-        //                             'image' => $item->product->image,
-        //                         )
-        //                     ]);
-        //     }
-            
-        // }
-        
-        return view('home');
+        $products = DB::table('products')->orderBy('updated_at','desc')->limit(12)->get();
+    
+        return view('home',compact('products'));
     }
 
     public function checkout() 
-    {
-        if(\Cart::getTotalQuantity() <= 0)
+    {   
+        $role = auth()->user()->role_id; //Unallow admin or superadmin or editor to Order
+        /* role_id 1 for supserAdmin
+        role_id 2 for User
+        role_id 3 for Admin
+        role_id 4 for Editor
+        */
+        if($role == 1 || $role ==3 || $role == 4)
+        {
+            return abort(403);
+        }
+
+        if(\Cart::getTotalQuantity() <= 0) // if there no Product to checkout
         {
             return back()->with('cartZero','You have to Buy Product to Order!');
         }
@@ -60,6 +51,17 @@ class HomeController extends Controller
 
     public function order(Request $request,$id)
     {
+        $role = auth()->user()->role_id; //Unallow admin or superadmin or editor to Order
+        /* role_id 1 for supserAdmin
+        role_id 2 for User
+        role_id 3 for Admin
+        role_id 4 for Editor
+        */
+        if($role == 1 || $role ==3 || $role == 4)
+        {
+            return abort(403);
+        }
+
         $request->validate([
             'name'=> 'required|string|max:50',
             'phone'=> 'required|digits_between:1,20|unique:users',

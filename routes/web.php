@@ -23,12 +23,14 @@ Route::get('single',function () {
     return view('single-product');
 });
 
-//user page
+//user View Product page
 Route::get('/products',[App\Http\Controllers\ProductController::class,'index'])->name('products');
+Route::get('/products/newest',[App\Http\Controllers\ProductController::class,'newestProduct'])->name('products.newest'); //Product Newest
+Route::get('/products/low-price',[App\Http\Controllers\ProductController::class,'lowPrice'])->name('products.lowprice'); //Product Low Price
+Route::get('/products/high-price',[App\Http\Controllers\ProductController::class,'highPrice'])->name('products.highprict'); // Product High Price
+
+//About Page
 Route::view('/about','about')->name('about');
-
-
-
 
 //Super Admin
 Route::prefix('superadmin')->name('superadmin.')->middleware(['admin'])->group(function(){
@@ -57,6 +59,7 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function(){
     //Order Details
     Route::get('orderlist',[\App\Http\Controllers\Admin\OrderController::class,'index'])->name('orderlist');
     Route::get('orderdatail/{id}',[\App\Http\Controllers\Admin\OrderController::class,'detail'])->name('orderlist.detail');
+    Route::get('order/{id}/del',[\App\Http\Controllers\Admin\OrderController::class,'deleteOrder'])->name('order.delete');
 });
 
 //user

@@ -13,10 +13,10 @@
       </div>
       <div class="col-md-8 col-sm-12">
         <div id="filters" class="button-group">
-          <button class="btn btn-primary" data-filter="*">All Products</button>
-          <button class="btn btn-primary" data-filter=".new">Newest</button>
-          <button class="btn btn-primary" data-filter=".low">Low Price</button>
-          <button class="btn btn-primary" data-filter=".high">Hight Price</button>
+          <a href="{{route('products')}}" class="btn btn-primary" data-filter="*" class='nav-item active'>All Products</a>
+          <a href="{{route('products.newest')}}" class="btn btn-primary" data-filter=".new">Newest</a>
+          <a href="{{route('products.lowprice')}}" class="btn btn-primary" data-filter=".low">Low Price</a>
+          <a href="{{route('products.highprict')}}" class="btn btn-primary" data-filter=".high">Hight Price</a>
         </div>
       </div>
     </div>
